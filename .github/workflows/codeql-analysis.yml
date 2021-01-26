@@ -108,7 +108,6 @@ jobs:
           echo 'generate project file'
           ./GenerateProjectFiles.sh
           echo 'Make UE'
-          su –c make ubuntu
           
           # Open the UE Editor to check everything works properly
           # cd ~/UnrealEngine_4.24/Engine/Binaries/Linux && ./UE4Editor
