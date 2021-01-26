@@ -43,14 +43,6 @@ jobs:
         language: [ 'cpp', 'python' ]
 
     steps:
-      - name: Where are we in the self-hosted runner?
-        run: |
-          echo 'Hello World!'
-          echo "list"
-          ls -l
-          echo "Working directory"
-          pwd
-
       - name: Checkout repository
         uses: actions/checkout@v2
 
@@ -101,30 +93,22 @@ jobs:
           pwd
           chown ubuntu:ubuntu /actions-runner/_work/carla/carla/UnrealEngine_4.24/
           chown -R ubuntu:ubuntu UnrealEngine_4.24
-          ls -l
-          whoami
-          su ubuntu
-          whoami
-          cd UnrealEngine_4.24
-          ls -l
-          pwd
+
           
           # Download and install the UE patches
           # echo 'Install UE patches'
           wget https://carla-releases.s3.eu-west-3.amazonaws.com/Backup/UE4_patch_vulkan.patch
           wget https://carla-releases.s3.eu-west-3.amazonaws.com/Backup/UE4_patch_wheels.patch
-          echo "where are the patches"
-          ls -l
-          pwd
           git apply UE4_patch_vulkan.patch UE4_patch_wheels.patch
           
           # Build UE
-          # echo 'Build UE setup'
-          # ./Setup.sh 
-          # echo 'generate project file'
-          # ./GenerateProjectFiles.sh
-          # echo 'Make UE'
-          # su –c make ubuntu
+          cd UnrealEngine_4.24
+          echo 'Build UE setup'
+          ./Setup.sh 
+          echo 'generate project file'
+          ./GenerateProjectFiles.sh
+          echo 'Make UE'
+          su –c make ubuntu
           
           # Open the UE Editor to check everything works properly
           # cd ~/UnrealEngine_4.24/Engine/Binaries/Linux && ./UE4Editor
