@@ -127,7 +127,7 @@ jobs:
           # cd ~/UnrealEngine_4.24/Engine/Binaries/Linux && ./UE4Editor
           
           # Get the CARLA assets
-          cd ~/work/carla/carla
+          cd ~/actions-runner/_work/carla/carla
           ./Update.sh
           
           # Set the environment variable
