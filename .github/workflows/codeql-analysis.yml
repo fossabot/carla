@@ -62,10 +62,9 @@ jobs:
           cd /actions-runner/_work/carla/carla
           ./Update.sh
 
-          # make the CARLA client and the CARLA server
-          echo "make the CARLA client and the CARLA server"
-          make PythonAPI
-          make launch
+          # builds CARLA and creates a packaged version for distribution.
+          echo "Build CARLA and create a packaged version for distribution."
+          make package
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v1
