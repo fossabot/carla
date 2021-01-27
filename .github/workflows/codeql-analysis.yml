@@ -66,89 +66,15 @@ jobs:
       # Read the complete documentation to understand each step
       - name: Install Dependencies
         run: |
-          # Install dependencies
-          echo 'Install dependencies'
-          sudo apt-get update &&
-          sudo apt-get install wget software-properties-common &&
-          sudo add-apt-repository ppa:ubuntu-toolchain-r/test &&
-          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add - &&
-          sudo apt-add-repository "deb http://apt.llvm.org/$(lsb_release -c --short)/ llvm-toolchain-$(lsb_release -c --short)-8 main" &&
-          sudo apt-get update
-          
-          # Additional dependencies for Ubuntu 18.04
-          echo 'Install dependencies 18.04'
-          sudo apt-get install build-essential clang-8 lld-8 g++-7 cmake ninja-build libvulkan1 python python-pip python-dev python3-dev python3-pip libpng-dev libtiff5-dev libjpeg-dev tzdata sed curl unzip autoconf libtool rsync libxml2-dev &&
-          pip2 install --user setuptools &&
-          pip3 install --user -Iv setuptools==47.3.1
-          
-          # Change default clang version
-          echo 'Install clang version'
-          sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/lib/llvm-8/bin/clang++ 180 &&
-          sudo update-alternatives --install /usr/bin/clang clang /usr/lib/llvm-8/bin/clang 180
-          
-          # goto Unreal Engine 4.24
-          echo "Unreal Engine 4.24 chown/cd"
-          whoami
-          ls -l
-          pwd
-          chown ubuntu:ubuntu /actions-runner/_work/carla/carla/UnrealEngine_4.24/
-          chown -R ubuntu:ubuntu UnrealEngine_4.24
 
-          
-          # Download and install the UE patches
-          # echo 'Install UE patches'
-          cd UnrealEngine_4.24
-          wget https://carla-releases.s3.eu-west-3.amazonaws.com/Backup/UE4_patch_vulkan.patch
-          wget https://carla-releases.s3.eu-west-3.amazonaws.com/Backup/UE4_patch_wheels.patch
-          git apply UE4_patch_vulkan.patch UE4_patch_wheels.patch
-          
-          # Build UE
-          echo 'Build UE setup'
-          ./Setup.sh 
-          echo 'generate project file'
-          ./GenerateProjectFiles.sh
-          echo 'Make UE'
-          
-          # Open the UE Editor to check everything works properly
-          # cd ~/UnrealEngine_4.24/Engine/Binaries/Linux && ./UE4Editor
-          
           # Get the CARLA assets
           cd /actions-runner/_work/carla/carla
           ./Update.sh
-          
-          # Set the environment variable
-          export UE4_ROOT=~/UnrealEngine_4.24
-          
+
           # make the CARLA client and the CARLA server
           echo "make the CARLA client and the CARLA server"
           make PythonAPI
           make launch
-          
-          # Press play in the Editor to initialize the server
-          # Run example scripts to test CARLA
-          
-          # Terminal A 
-          # cd PythonAPI/examples
-          # python3 spawn_npc.py 
-          
-          # Terminal B
-          # cd PythonAPI/examples
-          # python3 spawn_npc.py
-          # python3 dynamic_weather.py
-          
-          # Optionally, to compile the PythonAPI for Python2, run the following command in the root CARLA directory
-          # make PythonAPI ARGS="--python-version=2"
-
-      # - name: Autobuild
-      # uses: github/codeql-action/autobuild@v1
-      - name: Where are we in the self-hosted runner now?
-        run: |
-          echo 'Hello World!'
-          echo "list"
-          ls -l
-          echo "Working directory"
-          pwd
-          echo "Change directory"
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v1
