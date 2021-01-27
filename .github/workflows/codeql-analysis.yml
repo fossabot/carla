@@ -57,6 +57,8 @@ jobs:
       - name: Build CARLA
         run: |
           pip3 install distro
+          sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/lib/llvm-8/bin/clang++ 180 &&
+          sudo update-alternatives --install /usr/bin/clang clang /usr/lib/llvm-8/bin/clang 180
 
           # Get the CARLA assets
           cd /actions-runner/_work/carla/carla
