@@ -56,6 +56,7 @@ jobs:
       # Read the complete documentation to understand each step
       - name: Build CARLA
         run: |
+          pip3 install distro
 
           # Get the CARLA assets
           cd /actions-runner/_work/carla/carla
