@@ -46,16 +46,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - if: matrix.language == 'cpp' 
-        name: Fetch UE Repo
-        uses: actions/checkout@v2
-        with:
-          repository: EpicGames/UnrealEngine
-          token: ${{ secrets.UE_AUTH_TOKEN }}
-          fetch-depth: 1
-          ref: 4.24
-          path: UnrealEngine_4.24
-
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v1
@@ -64,7 +54,7 @@ jobs:
 
       # Make sure to meet the minimum requirements
       # Read the complete documentation to understand each step
-      - name: Install Dependencies
+      - name: Build CARLA
         run: |
 
           # Get the CARLA assets
