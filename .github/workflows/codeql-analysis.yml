@@ -64,7 +64,7 @@ jobs:
 
       # Make sure to meet the minimum requirements
       # Read the complete documentation to understand each step
-      - if: matrix.language == 'cpp'  
+      - name: Install Dependencies
         run: |
           # Install dependencies
           echo 'Install dependencies'
