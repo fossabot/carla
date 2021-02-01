@@ -56,6 +56,8 @@ jobs:
       # Read the complete documentation to understand each step
       - name: Build CARLA
         run: |
+          echo 'what is UE4_ROOT'
+          echo $UE4_ROOT
           pip3 install distro
           sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/lib/llvm-8/bin/clang++ 180 &&
           sudo update-alternatives --install /usr/bin/clang clang /usr/lib/llvm-8/bin/clang 180
@@ -66,7 +68,8 @@ jobs:
 
           # builds CARLA and creates a packaged version for distribution.
           echo "Build CARLA and create a packaged version for distribution."
-          make package
+          # make package
+          make PythonAPI
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v1
