@@ -64,12 +64,6 @@ jobs:
           sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/lib/llvm-8/bin/clang++ 180 &&
           sudo update-alternatives --install /usr/bin/clang clang /usr/lib/llvm-8/bin/clang 180
           
-          # make Unreal
-          cd Unreal/CarlaUE4/
-          make CarlaUE4Editor ARGS=-clean
-          make CarlaUE4Editor
-          cd ../..
-
           # Get the CARLA assets
           cd /actions-runner/_work/carla/carla
           ./Update.sh
