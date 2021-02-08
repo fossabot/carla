@@ -45,7 +45,7 @@ jobs:
     steps:
       - name: Git + OS Version Check
         run: |
-          echo 'What's the version of git?'
+          echo 'What is the version of git?'
           git --version
           
           echo 'Where is git?'
