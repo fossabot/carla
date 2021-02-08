@@ -47,6 +47,14 @@ jobs:
         run: |
           echo 'What's the version of git?'
           git --version
+          
+          echo 'Where is git?'
+          whereis git
+          
+          echo 'What is path?'
+          echo $PATH
+          echo 'What is path?'
+          
           echo 'What is the OS?'
           cat /etc/os-release
 
