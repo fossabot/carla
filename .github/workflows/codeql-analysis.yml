@@ -43,10 +43,12 @@ jobs:
         language: [ 'cpp', 'python' ]
 
     steps:
-      - name: Git Version Check
+      - name: Git + OS Version Check
         run: |
-          echo 'What version of git?'
+          echo 'What's the version of git?'
           git --version
+          echo 'What is the OS?'
+          cat /etc/os-release
 
       - name: Checkout repository
         uses: actions/checkout@v2
