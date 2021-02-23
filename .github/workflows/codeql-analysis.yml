@@ -40,24 +40,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'cpp', 'python' ]
+        language: [ 'cpp' ]
 
     steps:
-      - name: Git + OS Version Check
-        run: |
-          echo 'What is the version of git?'
-          git --version
-          
-          echo 'Where is git?'
-          whereis git
-          
-          echo 'What is path?'
-          echo $PATH
-          echo 'What is path?'
-          
-          echo 'What is the OS?'
-          cat /etc/os-release
-
       - name: Checkout repository
         uses: actions/checkout@v2
 
@@ -89,6 +74,7 @@ jobs:
           # make PythonAPI
 
       - name: Perform CodeQL Analysis
+        if: ${{ always() }}
         uses: github/codeql-action/analyze@v1
 
   stop-runner:
