@@ -70,8 +70,8 @@ jobs:
 
           # builds CARLA and creates a packaged version for distribution.
           echo "Build CARLA and create a packaged version for distribution."
-          make package
-          # make PythonAPI
+          make PythonAPI
+          make launch
 
       - name: Perform CodeQL Analysis
         if: ${{ always() }}
