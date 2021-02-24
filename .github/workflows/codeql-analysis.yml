@@ -60,6 +60,12 @@ jobs:
           chmod +x build.sh
           ./build.sh
 
+      - name: Upload CodeQL database
+        uses: actions/upload-artifact@v2
+        with:
+          name: carla-${{ github.sha }}-cpp
+          path: ${{ github.workspace }}/codeql-runner/carla-${{ github.sha }}-cpp.zip
+
 #       # Initializes the CodeQL tools for scanning.
 #       - name: Initialize CodeQL
 #         uses: github/codeql-action/init@v1
