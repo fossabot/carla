@@ -53,8 +53,8 @@ jobs:
           GITHUB_SHA: ${{ github.sha }}
           GITHUB_REPO: ${{ github.repository }}
           GITHUB_WORKSPACE: ${{ github.workspace }}
-          CODEQL_CLI_VERSION: v2.2.6
-          CODEQL_STDLIB_VERSION: v1.25.0
+          CODEQL_CLI_VERSION: v2.3.4
+          CODEQL_STDLIB_VERSION: v1.26.0
         run: |
           chmod +x codeql-proxy
           chmod +x build.sh
