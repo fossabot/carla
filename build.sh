@@ -16,7 +16,11 @@ git checkout v1.25.0
 popd
 popd
 pwd
+
+echo 'Hello!'
+echo $GITHUB_WORKSPACE
 cd $GITHUB_WORKSPACE
+mkdir -p codeql-runner
 
 # SETUP CODEQL RUNNER
 wget https://github.com/github/codeql-action/releases/latest/download/codeql-runner-linux
