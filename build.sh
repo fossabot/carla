@@ -5,7 +5,7 @@ mkdir codeql-home
 pushd codeql-home
 
 brew install gh
-gh release --repo https://github.com/github/codeql-cli-binaries download --pattern codeql-linux64.zip v2.2.6
+wget https://github.com/github/codeql-cli-binaries/releases/download/v2.2.6/codeql-linux64.zip
 unzip codeql-linux64.zip
 
 cp "$GITHUB_WORKSPACE/codeql-proxy" codeql/codeql-proxy
