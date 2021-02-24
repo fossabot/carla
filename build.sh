@@ -5,7 +5,7 @@ mkdir codeql-home
 pushd codeql-home
 
 brew install gh
-wget https://github.com/github/codeql-cli-binaries/releases/download/v2.2.6/codeql-linux64.zip
+wget https://github.com/github/codeql-cli-binaries/releases/download/v2.3.4/codeql-linux64.zip
 unzip codeql-linux64.zip
 
 cp "$GITHUB_WORKSPACE/codeql-proxy" codeql/codeql-proxy
@@ -13,7 +13,7 @@ chmod +x codeql/codeql-proxy
 
 git clone https://github.com/github/codeql.git codeql-stdlib
 pushd codeql-stdlib
-git checkout v1.25.0
+git checkout v1.26.0
 popd
 popd
 pwd
