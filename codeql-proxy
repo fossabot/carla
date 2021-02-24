@@ -1,0 +1,11 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+for param; do
+    [[ ! $param == '--sarif-multicause-markdown' ]] && newparams+=("$param")
+done
+
+set -- "${newparams[@]}"
+
+exec -a codeql "$DIR"/codeql $@
