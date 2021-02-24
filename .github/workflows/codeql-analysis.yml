@@ -45,37 +45,42 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      # Initializes the CodeQL tools for scanning.
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v1
-        with:
-          languages: ${{ matrix.language }}
-
-      # Make sure to meet the minimum requirements
-      # Read the complete documentation to understand each step
-      - name: Build CARLA
+      
+      - name: Build and analyse
         run: |
-          echo 'what is UE4_ROOT'
-          export UE4_ROOT=~/UnrealEngine_4.24
-          echo $UE4_ROOT
-          
-          pip3 install distro
-          sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/lib/llvm-8/bin/clang++ 180 &&
-          sudo update-alternatives --install /usr/bin/clang clang /usr/lib/llvm-8/bin/clang 180
-          
-          # Get the CARLA assets
-          cd /actions-runner/_work/carla/carla
-          ./Update.sh
+          chmod +x build.sh
+          ./build.sh
 
-          # builds CARLA and creates a packaged version for distribution.
-          echo "Build CARLA and create a packaged version for distribution."
-          make PythonAPI
-          make launch
+#       # Initializes the CodeQL tools for scanning.
+#       - name: Initialize CodeQL
+#         uses: github/codeql-action/init@v1
+#         with:
+#           languages: ${{ matrix.language }}
 
-      - name: Perform CodeQL Analysis
-        if: ${{ always() }}
-        uses: github/codeql-action/analyze@v1
+#       # Make sure to meet the minimum requirements
+#       # Read the complete documentation to understand each step
+#       - name: Build CARLA
+#         run: |
+#           echo 'what is UE4_ROOT'
+#           export UE4_ROOT=~/UnrealEngine_4.24
+#           echo $UE4_ROOT
+          
+#           pip3 install distro
+#           sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/lib/llvm-8/bin/clang++ 180 &&
+#           sudo update-alternatives --install /usr/bin/clang clang /usr/lib/llvm-8/bin/clang 180
+          
+#           # Get the CARLA assets
+#           cd /actions-runner/_work/carla/carla
+#           ./Update.sh
+
+#           # builds CARLA and creates a packaged version for distribution.
+#           echo "Build CARLA and create a packaged version for distribution."
+#           make PythonAPI
+#           make launch
+
+#       - name: Perform CodeQL Analysis
+#         if: ${{ always() }}
+#         uses: github/codeql-action/analyze@v1
 
   stop-runner:
     name: Stop self-hosted EC2 runner
