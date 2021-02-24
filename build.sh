@@ -33,7 +33,7 @@ chmod +x codeql-runner-linux
   --github-url https://github.com \
   --github-auth "$GITHUB_TOKEN" \
   --languages cpp \
-  --codeql-path $GITHUB_WORKSPACE/codeql-home/codeql/codeql-proxy
+  --codeql-path $GITHUB_WORKSPACE/codeql-home/codeql/codeql
   --source-root="$GITHUB_WORKSPACE"
 
 source codeql-runner/codeql-env.sh
