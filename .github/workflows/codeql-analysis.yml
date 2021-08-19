@@ -4,7 +4,6 @@ on:
   push:
     branches: [ master ]
   pull_request:
-    # The branches below must be a subset of the branches above
     branches: [ master ]
 
 jobs:
@@ -45,15 +44,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      
-      # Initializes the CodeQL tools for scanning.
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v1
         with:
           languages: ${{ matrix.language }}
 
-      # Make sure to meet the minimum requirements
-      # Read the complete documentation to understand each step
       - name: Build CARLA
         run: |
           echo 'what is UE4_ROOT'
@@ -74,7 +70,6 @@ jobs:
           make launch
 
       - name: Perform CodeQL Analysis
-        if: ${{ always() }}
         uses: github/codeql-action/analyze@v1
         
 #       - name: Build and analyze
