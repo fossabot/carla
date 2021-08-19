@@ -46,56 +46,56 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       
-      - name: Build and analyze
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          GITHUB_REF: ${{ github.ref }}
-          GITHUB_SHA: ${{ github.sha }}
-          GITHUB_REPO: ${{ github.repository }}
-          GITHUB_WORKSPACE: ${{ github.workspace }}
-          CODEQL_CLI_VERSION: v2.3.4
-          CODEQL_STDLIB_VERSION: v1.26.0
-        run: |
-          chmod +x codeql-proxy
-          chmod +x build.sh
-          ./build.sh
-
-      - name: Upload CodeQL database
-        uses: actions/upload-artifact@v2
+      # Initializes the CodeQL tools for scanning.
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v1
         with:
-          name: carla-${{ github.sha }}-cpp
-          path: ${{ github.workspace }}/codeql-runner/carla-${{ github.sha }}-cpp.zip
+          languages: ${{ matrix.language }}
 
-#       # Initializes the CodeQL tools for scanning.
-#       - name: Initialize CodeQL
-#         uses: github/codeql-action/init@v1
-#         with:
-#           languages: ${{ matrix.language }}
+      # Make sure to meet the minimum requirements
+      # Read the complete documentation to understand each step
+      - name: Build CARLA
+        run: |
+          echo 'what is UE4_ROOT'
+          export UE4_ROOT=~/UnrealEngine_4.24
+          echo $UE4_ROOT
+          
+          pip3 install distro
+          sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/lib/llvm-8/bin/clang++ 180 &&
+          sudo update-alternatives --install /usr/bin/clang clang /usr/lib/llvm-8/bin/clang 180
+          
+          # Get the CARLA assets
+          cd /actions-runner/_work/carla/carla
+          ./Update.sh
 
-#       # Make sure to meet the minimum requirements
-#       # Read the complete documentation to understand each step
-#       - name: Build CARLA
+          # builds CARLA and creates a packaged version for distribution.
+          echo "Build CARLA and create a packaged version for distribution."
+          make PythonAPI
+          make launch
+
+      - name: Perform CodeQL Analysis
+        if: ${{ always() }}
+        uses: github/codeql-action/analyze@v1
+        
+#       - name: Build and analyze
+#         env:
+#           GITHUB_TOKEN: ${{ github.token }}
+#           GITHUB_REF: ${{ github.ref }}
+#           GITHUB_SHA: ${{ github.sha }}
+#           GITHUB_REPO: ${{ github.repository }}
+#           GITHUB_WORKSPACE: ${{ github.workspace }}
+#           CODEQL_CLI_VERSION: v2.3.4
+#           CODEQL_STDLIB_VERSION: v1.26.0
 #         run: |
-#           echo 'what is UE4_ROOT'
-#           export UE4_ROOT=~/UnrealEngine_4.24
-#           echo $UE4_ROOT
-          
-#           pip3 install distro
-#           sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/lib/llvm-8/bin/clang++ 180 &&
-#           sudo update-alternatives --install /usr/bin/clang clang /usr/lib/llvm-8/bin/clang 180
-          
-#           # Get the CARLA assets
-#           cd /actions-runner/_work/carla/carla
-#           ./Update.sh
+#           chmod +x codeql-proxy
+#           chmod +x build.sh
+#           ./build.sh
 
-#           # builds CARLA and creates a packaged version for distribution.
-#           echo "Build CARLA and create a packaged version for distribution."
-#           make PythonAPI
-#           make launch
-
-#       - name: Perform CodeQL Analysis
-#         if: ${{ always() }}
-#         uses: github/codeql-action/analyze@v1
+#       - name: Upload CodeQL database
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: carla-${{ github.sha }}-cpp
+#           path: ${{ github.workspace }}/codeql-runner/carla-${{ github.sha }}-cpp.zip
 
   stop-runner:
     name: Stop self-hosted EC2 runner
