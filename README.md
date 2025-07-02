@@ -3,6 +3,7 @@ CARLA Simulator
 
 [![Build Status](https://travis-ci.org/carla-simulator/carla.svg?branch=master)](https://travis-ci.org/carla-simulator/carla)
 [![Documentation](https://readthedocs.org/projects/carla/badge/?version=latest)](http://carla.readthedocs.io)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkirogum%2Fcarla.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkirogum%2Fcarla?ref=badge_shield)
 
 [![carla.org](Docs/img/btn/web.png)](http://carla.org)
 [![download](Docs/img/btn/download.png)](https://github.com/carla-simulator/carla/blob/master/Docs/download.md)
@@ -134,3 +135,7 @@ CARLA specific assets are distributed under CC-BY License.
 The ad-rss-lib library compiled and linked by the [RSS Integration build variant](Docs/adv_rss.md) introduces LGPL-2.1-only License.
 
 Note that UE4 itself follows its own license terms.
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkirogum%2Fcarla.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkirogum%2Fcarla?ref=badge_large)
